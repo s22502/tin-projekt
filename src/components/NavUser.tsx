@@ -8,6 +8,8 @@ import { logOut as logOutAction } from "@/actions/auth";
 const NavUser = () => {
   const { user, setUser } = useUser();
 
+  console.log("user", user);
+
   const logOut = () => {
     setUser(null);
     logOutAction();

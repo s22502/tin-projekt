@@ -19,7 +19,9 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const user = JSON.parse(cookies().get("user")?.value ?? "{}") as User | null;
+  const userFromCookie = cookies().get("user")?.value;
+
+  const user = userFromCookie ? (JSON.parse(userFromCookie) as User) : null;
 
   return (
     <html lang="en">
