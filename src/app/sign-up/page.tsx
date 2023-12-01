@@ -69,12 +69,6 @@ const Page = () => {
           {errors.password?.message && <Error text={errors.password.message} />}
         </div>
         <Submit text="Sign up" />
-        <div className="mt-4">
-          <button
-            type="submit"
-            className="rounded bg-yellow-700 p-2 font-bold"
-          ></button>
-        </div>
         {errors.root?.message && <Error text={errors.root.message} />}
       </form>
     </div>

@@ -4,15 +4,17 @@ import React from "react";
 import { useUser } from "@/components/UserProvider";
 import Link from "next/link";
 import { logOut as logOutAction } from "@/actions/auth";
+import { useRouter } from "next/navigation";
 
 const NavUser = () => {
-  const { user, setUser } = useUser();
+  const router = useRouter();
 
-  console.log("user", user);
+  const { user, setUser } = useUser();
 
   const logOut = () => {
     setUser(null);
     logOutAction();
+    router.refresh();
   };
 
   if (!user) {
