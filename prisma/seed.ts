@@ -2,7 +2,7 @@ import prisma from "@/lib/prisma";
 import { faker } from "@faker-js/faker";
 
 async function main() {
-  for (let i = 1; i < 3; i++) {
+  for (let i = 1; i < 6; i++) {
     await prisma.note.create({
       data: {
         name: faker.word.words(4),
