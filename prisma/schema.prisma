@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Group {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Notes     Note[]
+
+  @@index([name])
+}
+
+model Note {
+  id        Int        @id @default(autoincrement())
+  name      String
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  NoteTags  NoteTags[]
+  Group     Group      @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  groupId   Int
+  User      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+
+  @@index([name])
+}
+
+model NoteTags {
+  id        Int      @id @default(autoincrement())
+  Tag       Tag      @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  Note      Note     @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  tagId     Int
+  noteId    Int
+  createdAt DateTime @default(now())
+
+  @@index([tagId, noteId])
+}
+
+model Tag {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  createdAt DateTime   @default(now())
+  NoteTags  NoteTags[]
+  color     String?
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String
+  Notes    Note[]
+}
